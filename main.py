@@ -113,7 +113,7 @@ class Dinosaur:
 
 
 
-        if self.dino_rect.y >= self.Y_POS:
+        if self.dino_rect.y >= self.Y_POS - 15:
             self.dino_jump = False
             self.index_jump = 0
             self.jump_vel = self.JUMP_VEL
@@ -183,7 +183,7 @@ class Bird(Obstacle):
     def __init__(self, image):
         self.type = 0
         super().__init__(image, self.type)
-        self.rect.y = 340 - 68 - random.randint(0, 100)
+        self.rect.y = 340 - 68 - random.randint(0, 50)
         self.index = 0
 
     def draw(self, SCREEN):

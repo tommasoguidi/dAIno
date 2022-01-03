@@ -99,21 +99,21 @@ class Dinosaur:
         if self.dino_jump:
             userInput = pygame.key.get_pressed()
 
-            if (userInput[pygame.K_UP] and self.index_jump<11):
+            if (userInput[pygame.K_UP] and self.index_jump<self.MAX_JUMP_FRAME):
                 self.index_jump +=1
                 self.dino_rect.y -= self.jump_vel * 4
                 self.jump_vel -= 0.8
             else:
-                #if self.index_jump != 11:
-                #    self.jump_vel=0.3
+                if self.index_jump != self.MAX_JUMP_FRAME:
+                    self.jump_vel=0.5
 
-                self.index_jump = 11
+                self.index_jump = self.MAX_JUMP_FRAME
                 self.dino_rect.y += abs(self.jump_vel) * 4
                 self.jump_vel += 0.8
 
 
 
-        if self.jump_vel >= self.JUMP_VEL:
+        if self.dino_rect.y >= self.Y_POS:
             self.dino_jump = False
             self.index_jump = 0
             self.jump_vel = self.JUMP_VEL

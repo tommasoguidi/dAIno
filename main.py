@@ -159,7 +159,7 @@ class Obstacle:
     def update(self):
         self.rect.x -= game_speed
         if self.rect.x < -self.rect.width:
-            obstacles.pop()
+            obstacles.pop(0)
 
     def draw(self, SCREEN):
         SCREEN.blit(self.image[self.type], self.rect)
@@ -183,7 +183,7 @@ class Bird(Obstacle):
     def __init__(self, image):
         self.type = 0
         super().__init__(image, self.type)
-        self.rect.y = 250
+        self.rect.y = 340 - 68 - random.randint(0, 100)
         self.index = 0
 
     def draw(self, SCREEN):
@@ -239,7 +239,7 @@ def main():
         player.draw(SCREEN)
         player.update(userInput)
 
-        if len(obstacles) == 0:
+        if (len(obstacles) == 0 or (len(obstacles) == 1 and obstacles[0].rect.x < random.randint(0, SCREEN_WIDTH*.3))):
             if random.randint(0, 2) == 0:
                 obstacles.append(SmallCactus(SMALL_CACTUS))
             elif random.randint(0, 2) == 1:

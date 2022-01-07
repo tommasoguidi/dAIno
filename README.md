@@ -7,7 +7,7 @@ In this project we're gonna create an AI that is able to play the famous Dino ga
 - train the AI over a simplified version of the game that has a single class of obstacles (cactus)
 - once the AI gathers interesting results on this first game mode, we switch to a more tricky one with also flying obstacles, to test the capability of the AI to react to enviromental changes thanks to mutations and crossing-over
 
-###References
+### References
 
 Special thanks to Code Bucket, our work is mainly based on his implementations of both the Dino game with pygame and the NEAT algorithm.
 

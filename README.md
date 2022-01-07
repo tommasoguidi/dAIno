@@ -4,8 +4,13 @@ In this project we're gonna create an AI that is able to play the famous Dino ga
 
 ## Project's purposes
 
-- train the AI over a simplified version of the game that has a single class of obstacles (cactus)
-- once the AI gathers interesting results on this first game mode, we switch to a more tricky one with also flying obstacles, to test the capability of the AI to react to enviromental changes thanks to mutations and crossing-over
+- train the AI over a simplified version of the game that has a single class of obstacles (cactus);
+- once the AI gathers interesting results on this first game mode, we switch to a more tricky one with also flying obstacles, to test the capability of the AI to react to enviromental changes thanks to mutations and crossing-over.
+
+## User Guide
+
+- we used Python version 3.10.0;
+- the required packages are listed in [requirements.txt](requirements.txt).
 
 ### References
 

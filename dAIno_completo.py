@@ -38,6 +38,7 @@ class Dinosaur:
     index_jump = 0   #indice della quantità di salto
     MAX_JUMP_FRAME=11
 
+
     def __init__(self):
         self.duck_img = DUCKING
         self.run_img = RUNNING
@@ -46,6 +47,7 @@ class Dinosaur:
         self.dino_duck = False
         self.dino_run = True
         self.dino_jump = False
+        self.state_dinoJump = False
 
         self.step_index = 0
         self.jump_vel = self.JUMP_VEL
@@ -53,6 +55,7 @@ class Dinosaur:
         self.dino_rect = self.image.get_rect()
         self.dino_rect.x = self.X_POS
         self.dino_rect.y = self.Y_POS
+
 
     def update(self, userInput):
         if self.dino_duck:
@@ -78,6 +81,7 @@ class Dinosaur:
             self.dino_run = True
             self.dino_jump = False
 
+
     def duck(self):
         self.image = self.duck_img[self.step_index // 5]
         self.dino_rect = self.image.get_rect()
@@ -85,12 +89,14 @@ class Dinosaur:
         self.dino_rect.y = self.Y_POS_DUCK
         self.step_index += 1
 
+
     def run(self):
         self.image = self.run_img[self.step_index // 5]
         self.dino_rect = self.image.get_rect()
         self.dino_rect.x = self.X_POS
         self.dino_rect.y = self.Y_POS
         self.step_index += 1
+
 
     #jump modificato
 
@@ -103,6 +109,7 @@ class Dinosaur:
                 self.index_jump +=1
                 self.dino_rect.y -= self.jump_vel * 4
                 self.jump_vel -= 0.8
+                self.state_dinoJump= True
             else:
                 if self.index_jump != self.MAX_JUMP_FRAME:
                     self.jump_vel=0.5
@@ -110,6 +117,7 @@ class Dinosaur:
                 self.index_jump = self.MAX_JUMP_FRAME
                 self.dino_rect.y += abs(self.jump_vel) * 4
                 self.jump_vel += 0.8
+                self.state_dinoJump = False
 
 
 

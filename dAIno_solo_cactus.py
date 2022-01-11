@@ -46,6 +46,7 @@ class Dinosaur:
         self.dino_duck = False
         self.dino_run = True
         self.dino_jump = False
+        self.state_dinoJump = False
 
         self.step_index = 0
         self.jump_vel = self.JUMP_VEL
@@ -103,6 +104,7 @@ class Dinosaur:
                 self.index_jump +=1
                 self.dino_rect.y -= self.jump_vel * 4
                 self.jump_vel -= 0.8
+                self.state_dinoJump = True
             else:
                 if self.index_jump != self.MAX_JUMP_FRAME:
                     self.jump_vel=0.5
@@ -110,6 +112,7 @@ class Dinosaur:
                 self.index_jump = self.MAX_JUMP_FRAME
                 self.dino_rect.y += abs(self.jump_vel) * 4
                 self.jump_vel += 0.8
+                self.state_dinoJump = False
 
 
 

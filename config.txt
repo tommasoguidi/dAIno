@@ -1,8 +1,11 @@
 [NEAT]
 fitness_criterion     = max
 fitness_threshold     = 10000
-pop_size              = 50
+pop_size              = 100
 reset_on_extinction   = False
+
+[DefaultSpeciesSet]
+compatibility_threshold = 3.0
 
 [DefaultStagnation]
 species_fitness_func = max
@@ -16,9 +19,9 @@ survival_threshold = 0.2
 [DefaultGenome]
 # node activation options
 # volendo gli si pò fa sentire un po di piu
-activation_default      = tanh
+activation_default      = sigmoid
 activation_mutate_rate  = 0.0
-activation_options      = tanh relu
+activation_options      = sigmoid
 
 # node aggregation options
 aggregation_default     = sum
@@ -35,21 +38,20 @@ bias_mutate_rate        = 0.7
 bias_replace_rate       = 0.1
 
 # genome compatibility options
-compatibility_threshold = 3.0
 compatibility_disjoint_coefficient = 1.0
 compatibility_weight_coefficient   = 0.5
 
 # connection add/remove rates
 # questo si lascia così ma ci si può gioà un pohinino
-conn_add_prob           = 0.5
-conn_delete_prob        = 0.5
+conn_add_prob           = 0.7 #era 0.5
+conn_delete_prob        = 0.7 #era 0.5
 
 # connection enable options
 enabled_default         = True
-enabled_mutate_rate     = 0.01
+enabled_mutate_rate     = 0.05
 
 feed_forward            = True
-initial_connection      = partial_direct 0.5
+initial_connection      = full
 
 # node add/remove rates
 node_add_prob           = 0.2

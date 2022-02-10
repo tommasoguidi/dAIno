@@ -179,7 +179,7 @@ class Bird(Obstacle):
     def __init__(self, image):
         self.type = 0
         super().__init__(image, self.type)
-        self.rect.y = 340 - 100 - random.randint(0, 40)
+        self.rect.y = 340 - 100 - 20#10*random.randint(1,4)
         self.index = 0
 
     def draw(self, SCREEN):
@@ -307,7 +307,7 @@ def eval_genomes(genomes, config):
         statistics()
         score()
         background()
-        clock.tick(90)
+        clock.tick(240)
         cloud.draw(SCREEN)
         cloud.update()
         pygame.display.update()

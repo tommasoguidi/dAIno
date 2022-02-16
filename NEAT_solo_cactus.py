@@ -319,6 +319,7 @@ def run(config_path):
     pop = neat.Population(config)
     pop.add_reporter(neat.StdOutReporter(True))
     pop.add_reporter(neat.StatisticsReporter())
+    pop.add_reporter(neat.Checkpointer(1, None, 'winner_population.pkl'))
     winner = pop.run(eval_genomes, 500)
 
     print('\nBest genome:\n{!s}'.format(winner))

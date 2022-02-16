@@ -3,6 +3,8 @@ import os
 import random
 import sys
 import neat
+import gzip
+import pickle
 
 pygame.init()
 
@@ -324,6 +326,7 @@ def eval_genomes(genomes, config):
 # Setup the NEAT Neural Network
 def run(config_path):
     global pop
+
     config = neat.config.Config(
         neat.DefaultGenome,
         neat.DefaultReproduction,
@@ -332,7 +335,11 @@ def run(config_path):
         config_path
     )
 
-    pop = neat.Population(config)
+    with gzip.open('winner_population.pkl') as f:
+        _generation, _config, population, species_set, rndstate = pickle.load(f)
+        random.setstate(rndstate)
+
+    pop = neat.Population(config, (population, species_set, 0))
     pop.add_reporter(neat.StdOutReporter(True))
     pop.add_reporter(neat.StatisticsReporter())
     winner = pop.run(eval_genomes, 5000)

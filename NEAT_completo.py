@@ -3,7 +3,6 @@ import os
 import random
 import sys
 import neat
-from PIL import Image
 
 pygame.init()
 
@@ -156,6 +155,8 @@ class Obstacle:
     def update(self):
         self.rect.x -= game_speed
         if self.rect.x < -self.rect.width:
+            for i, dinosaur in enumerate(dinosaurs):
+                ge[i].fitness += 1
             obstacles.pop(0)
 
     def draw(self, SCREEN):
@@ -250,6 +251,8 @@ def eval_genomes(genomes, config):
         x_pos_bg -= game_speed
 
     run = True
+    printed = False
+
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -265,6 +268,10 @@ def eval_genomes(genomes, config):
         if len(dinosaurs) == 0:
             break
 
+        if len(dinosaurs) == 1 and not printed:
+            print('\nBest genome:\n{!s}'.format(ge[0]))
+            printed = True
+
         rand_obst = random.randint(0, 3)
         if (len(obstacles) == 0 or (len(obstacles) == 1 and obstacles[0].rect.x < random.randint(0, SCREEN_WIDTH * .3))):
             if rand_obst == 0:
@@ -278,17 +285,18 @@ def eval_genomes(genomes, config):
             obstacle.draw(SCREEN)
             obstacle.update()
             for i, dinosaur in enumerate(dinosaurs):
-                ge[i].fitness += 1
+                # ge[i].fitness += 1
                 if dinosaur.dino_rect.colliderect(obstacle.rect):
-                    ge[i].fitness -= 1
+                    # ge[i].fitness -= 1
                     remove(i)
 
         for i, dinosaur in enumerate(dinosaurs):
             output = nets[i].activate((dinosaur.dino_rect.y,
                                        obstacles[0].rect.x if len(obstacles) > 0 else SCREEN_WIDTH,
                                        obstacles[0].rect.y if len(obstacles) > 0 else SCREEN_HEIGHT,
-                                       obstacles[1].rect.x if len(obstacles) > 1 else SCREEN_WIDTH,
-                                       obstacles[1].rect.y if len(obstacles) > 1 else SCREEN_HEIGHT))
+                                       # obstacles[1].rect.x if len(obstacles) > 1 else SCREEN_WIDTH,
+                                       # obstacles[1].rect.y if len(obstacles) > 1 else SCREEN_HEIGHT
+                                       ))
 
             if output[0] > 0.5 and not dinosaur.dino_duck:
                 dinosaur.dino_duck = False
@@ -327,7 +335,14 @@ def run(config_path):
     pop = neat.Population(config)
     pop.add_reporter(neat.StdOutReporter(True))
     pop.add_reporter(neat.StatisticsReporter())
-    pop.run(eval_genomes, 500)
+    winner = pop.run(eval_genomes, 5000)
+
+    print('\nBest genome:\n{!s}'.format(winner))
+
+    # visualize.draw_net(config, winner, True, )
+    # visualize.plot_stats(stats, ylog=False, view=True)
+    # visualize.plot_species(stats, view=True)
+    # winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
 
 
 if __name__ == '__main__':
